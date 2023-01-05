@@ -1,0 +1,19 @@
+class Solution {
+public:
+    
+	void combsm3(int n,int k,vector<int>&cur,vector<vector<int>> &ans,int i){
+		if(k==0){if(n==0)ans.push_back(cur); return;}
+			if(i>9) return;
+			cur.push_back(i);
+			combsm3(n-i,k-1,cur,ans,i+1);
+			cur.pop_back();
+			combsm3(n,k,cur,ans,i+1);
+
+	}
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> ans;
+		vector<int> cur;
+				combsm3(n,k,cur,ans,1);
+        return ans;
+    }
+};
