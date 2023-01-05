@@ -1,0 +1,68 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<long long> st;
+        for(auto &s:tokens) {
+            if(s.size()==1) {
+                if(s[0]=='+') {
+                    long long x = st.top();
+                    st.pop();
+                    long long y = st.top();
+                    st.pop();
+                    st.push(y+x);
+                }
+                else if(s[0]=='-') {
+                    long long x = st.top();
+                    st.pop();
+                    long long y = st.top();
+                    st.pop();
+                    st.push(y-x);
+                }
+                else if(s[0]=='*') {
+                    long long x = st.top();
+                    st.pop();
+                    long long y = st.top();
+                    st.pop();
+                    st.push(y*x*1ll);
+                }
+                else if(s[0]=='/') {
+                    long long x = st.top();
+                    st.pop();
+                    long long y = st.top();
+                    st.pop();
+                    st.push(y/x);
+                }
+                else {
+                    st.push(s[0]-'0');
+                    // cout<<st.top()<<endl;
+                }
+            }
+            else {
+                long long n= s.size();
+                long long num = 0,r=n,mul=1,sign=1;
+                if(s[0]=='-') {r--;sign*=-1;}
+                reverse(s.begin(),s.end());
+                for(long long l=0;l<r;l++) {
+                    long long x = s[l]-'0';
+                    x*=mul;
+                    num+=x;
+                    mul*=10;
+                }
+                num*=sign;
+                // cout<<num<<endl;
+                st.push(num);
+            }
+        } 
+        return int(st.top());
+    }
+};
+
+
+
+
+
+
+
+
+
+
